@@ -1,9 +1,16 @@
 <ul class='todos'>
     <% @todos.each do |todo| %>
-        <li class="<%= 'completed' if todo.completed? %>">
-            <%= todo.title %>
-            <%= button_to "Mark complete", todo_completion_path(todo) %>
-        </li>
+        <% if todo.completed? %>
+            <li class="completed">
+                <%= todo.title %>
+                <%= button_to "Mark incomplete", todo_completion_path(todo), method: :delete %>
+            </li>
+        <% else %>
+            <li>
+                <%= todo.title %>
+                <%= button_to "Mark complete", todo_completion_path(todo) %>
+            </li>
+        <% end %>
     <% end %>
 </ul>
 

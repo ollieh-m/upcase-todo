@@ -21,3 +21,12 @@ describe Todo, "#complete!" do
     expect(todo.completed_at).to eq Time.new(2001,1,1)
   end
 end
+
+describe Todo, "#incomplete!" do
+  it 'removes a timestamp from the todo completed_at attribute' do
+    todo = Todo.create(completed_at: Time.now)
+    todo.incomplete!
+    todo.reload
+    expect(todo).not_to be_completed
+  end
+end
