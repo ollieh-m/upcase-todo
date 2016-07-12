@@ -3,7 +3,7 @@ class TodosController < ApplicationController
   before_filter :authenticate
   
   def index
-    @todos = Todo.all
+    @todos = Todo.where(email: session[:current_email])
   end
   
   def new
@@ -20,7 +20,9 @@ class TodosController < ApplicationController
   private
   
   def todo_params
-    params.require(:todo).permit(:title)
+    params.require(:todo).permit(:title).tap do |todo_params|
+      todo_params[:email] = session[:current_email]
+    end
   end
     
 end
