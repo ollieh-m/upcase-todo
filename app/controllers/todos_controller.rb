@@ -3,7 +3,7 @@ class TodosController < ApplicationController
   before_filter :authenticate
   
   def index
-    @todos = Todo.where(email: current_user)
+    @todos = current_user.todos
   end
   
   def new
@@ -11,7 +11,7 @@ class TodosController < ApplicationController
   end
   
   def create
-    todo = Todo.new(todo_params)
+    todo = current_user.todos.new(todo_params)
     if todo.save
       redirect_to todos_path
     end
@@ -20,9 +20,7 @@ class TodosController < ApplicationController
   private
   
   def todo_params
-    params.require(:todo).permit(:title).tap do |todo_params|
-      todo_params[:email] = current_user
-    end
+    params.require(:todo).permit(:title)
   end
     
 end
