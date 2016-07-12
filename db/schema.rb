@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712083523) do
+ActiveRecord::Schema.define(version: 20160712114442) do
 
   create_table "todos", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "email"
+    t.datetime "completed_at"
   end
 
+  add_index "todos", ["completed_at"], name: "index_todos_on_completed_at"
   add_index "todos", ["email"], name: "index_todos_on_email"
 
 end
