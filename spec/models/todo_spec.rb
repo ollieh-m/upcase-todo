@@ -11,3 +11,13 @@ describe Todo, "#completed?" do
     expect(todo).not_to be_completed
   end
 end
+
+describe Todo, "#complete!" do
+  it 'adds a timestamp to the todo completed_at attribute' do
+    allow(Time).to receive(:now).and_return(Time.new(2001,1,1))
+    todo = Todo.create(completed_at: nil)
+    todo.complete!
+    todo.reload
+    expect(todo.completed_at).to eq Time.new(2001,1,1)
+  end
+end
